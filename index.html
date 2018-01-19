@@ -1,152 +1,132 @@
 <!DOCTYPE html>
 <?php session_start(); ?>
+<html lang ="en"><!--html의 시작부분, 언어설정을 ko로 변경가능, 먼저bootstrap에서 다운받아서 압축을 풀어 htdocs에 해당파일들을 넣습니다.-->
 
 <head>
-  <!-- Set the viewport -->
+  <!-- Set the viewport, meta tag는 HTML 문서가 어떤 내용을 담고 있고, 문서의 키워드는 무엇이며, 누가 만들었는지 등의 문서 자체의 특성을 담고 있습니다. -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- Set character encoding -->
   <meta charset="utf-8">
-
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"><!--InternetExplor호환모듈을 지정하는부분-->
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!--반응형 웹페이지 적용-->
   <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
   <meta name="description" content="">
   <meta name="author" content="">
 
   <style>
-    /*###### 이부분이 이미지에대한 CSS옵션입니다. ######*/
-    body {
-      margin: 0;
-    }
+  body {
+          margin: 0;
+      }
+      .image{
+          position : relative;
+          height: 726px;
+          background: url(cafeimage.jpg) no-repeat center center;
+          -webkit-background-size: cover;
+          -moz-background-size: cover;
+          -o-background-size: cover;
+          background-size: cover;
+          background-position: center;
+          background-attachment: fixed;
+          height: calc(100vh);
+          min-height: 200px;
+      }
+      .image.container{
+          position:absolute;
+          color:white;
+      }
+      .hello{
+          color:white;
+          font-size:5rem;
+          text-align: right;
 
-    .image {
-      position: relative;
-      height: 726px;
-      background: url(cafeimage.jpg) no-repeat center center;
-      -webkit-background-size: cover;
-      -moz-background-size: cover;
-      -o-background-size: cover;
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
-      height: calc(100vh);
-      min-height: 200px;
-    }
+      }
+      .lead{
+          color:white;
+          font-size:3rem;
+          text-align: right;
 
-    .image.container {
-      position: absolute;
-      color: white;
-    }
-
-    .hello {
-      color: white;
-      font-size: 7rem;
-      text-align: right;
-
-    }
-
-    .lead {
-      color: white;
-      font-size: 7rem;
-      text-align: right;
-
-    }
-
-    /*###### 여기까지 ######*/
+      }
   </style>
+  <!--vh는 viewport height, imageheight는 viewport높이, minheight는 이미지 최소한높이 정해야해서, position relative는 이미지를 뒤쪽에두고, 글자같은거를 absolute로 이미지 앞에둔다, cover는 배경 이미지의 가로, 세로 길이 모두 엘리먼트보다 크다라는 조건하에 가능한한 배경 이미지를 작게 조정-->
 
-  <link rel="icon" href="../../favicon.ico">
 
-  <!-- Set title -->
-  <title>Welcome</title>
-  <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
-  <!--  <link rel = "stylesheet" href="css/site.css"> !-->
+    <link rel="icon" href="../../favicon.ico"> <!--icon-bar를 위해서-->
+    <title>Welcome</title><!--페이지이름-->
+    <link rel = "stylesheet" href="../css/bootstrap.css"><!--bootstrap에서 제공하는 css파일 사용-->
+    <!--<link rel = "stylesheet" href="css/site.css"> -->
 
-  <!-- Bootstrap core CSS -->
-  <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap의 핵심 CSS -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet"><!--bootstrap의 javascript적용하는 부분-->
 
-  <!-- Custom styles for this template -->
-  <!--   <link href="starter-template.css" rel="stylesheet"> !-->
-
-  <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-  <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-  <!--  <script src="../../assets/js/ie-emulation-modes-warning.js"></script> !-->
-
-  <!--  <script src="bootstrap/js/jquery-3.1.0.min.js"></script> !-->
+    <!-- Custom styles for this template -->
+    <!--
+    <link href="starter-template.css" rel="stylesheet">
+    -->
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <!--
+    <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
+    -->
+   <script src="../js/jquery-3.1.0.min.js"></script>
 </head>
 
 <body>
+  <!--메뉴 바-->
+      <nav class="navbar navbar-inverse navbar-fixed-top"><!--메뉴 바 맨 위쪽에 고정-->
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index.html">ChungUlLim</a>
+          </div>
+          <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+              <li class="active"><a href="index.html">Home</a></li>
+              <li><a href="order.php">Order</a></li>
+              <li><a href="waitinglist.php">Waiting List</a></li>
+              <li><a href="event.php">Event</a></li>
+              <li><a href="login.php">Administrator Login</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </nav>
 
-  <nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false"
-          aria-controls="navbar">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="#">ChungUlLim</a>
+      <div class="image"`>    <!--사진-->
+      <br><br><br><br><br>
+      <div class="container">
+        <div class="starter-template">
+          <h1 class = "hello">聽 울 림</h1>
+          <p class="lead">마음을 울리는 맑은 소리</p>
+        </div>
+      </div><!-- /.container -->
+
       </div>
-      <div id="navbar" class="collapse navbar-collapse">
-        <ul class="nav navbar-nav">
-          <li class="active">
-            <a href="#">Home</a>
-          </li>
-          <li>
-            <a href="#order">Order</a>
-          </li>
-          <li>
-            <a href="#waitinglist">Waiting List</a>
-          </li>
-          <li>
-            <a href="#event">Event</a>
-          </li>
-          <li>
-            <a href="#administratorlogin">Administrator Login</a>
-          </li>
-        </ul>
-      </div>
-      <!--/.nav-collapse -->
-    </div>
-  </nav>
+      <!--notification인데 event에서 쓰면될듯-->
+      <!--
+      <button class="js-notify-btn">알림 테스트</button>
+      <button disabled class="js-push-btn">알림 받기 허용</button><br><br>
+      -->
 
-  <div class="image" `>
-
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <div class="container">
-      <div class="starter-template">
-        <h1 class="hello">聽 울 림</h1>
-        <p class="lead">마음을 울리는 맑은 소리</p>
-      </div>
-    </div>
-    <!-- /.container -->
-
-  </div>
-  <!--
-  <h1>Homepage</h1>
-  <button class="js-notify-btn">알림 테스트</button>
-  <button disabled class="js-push-btn">알림 받기 허용</button><br><br>
-    -->
-  <section class="js-sub-endpoint" style="display:none;width:80%">
-    <h3 calss="subscription">Subscription Object:</h3>
-    <code class="js-subscription-json"></code>
-    <br>
-    <br>
-    <br>
-    <!--<h3>Endpoint URL:</h3>
-    <code class="js-endpoint-url"></code>-->
-  </section>
+    <section class="js-sub-endpoint" style="display:none;width:80%">
+      <h3 calss = "subscription">Subscription Object:</h3>
+      <code class="js-subscription-json"></code><br><br><br>
+      <h3>Endpoint URL:</h3>
+      <code class="js-endpoint-url"></code>
+    </section>
 
   <!-- Include script -->
-  <!-- <script src="bootstrap/js/requestSubscription.js"></script> !-->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
+  <script src="../js/requestSubscription.js"></script>
+  <script src = "https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script><!--bootstrap.js는 jQuery로 구성되어있기 때문, jQuery가 없으면 동작하지 않기때문에 bootstrap.js.보다 앞에 적었음 -->
+  <script type = "text/javascript" src="../js/bootstrap.js"></script><!--bootstrap에서 필요한 자바스크립트사용/body의 마지막에 기재한 이유는 브라우저가 스크립트 파일을 읽는데 시간이 조금 걸리기 때문에 마지막에 로드하기 위해-->
+
+  <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+  <!--
+  <script src="js/ie10-viewport-bug-workaround.js"></script>
+  -->
 
 </body>
 
