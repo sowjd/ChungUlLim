@@ -15,6 +15,7 @@
 
   <style>
     /*###### 이부분이 이미지에대한 CSS옵션입니다. ######*/
+
     body {
       margin: 0;
     }
@@ -103,9 +104,18 @@
           <li>
             <a href="#event">Event</a>
           </li>
-          <li>
-            <a href="#administratorlogin">Administrator Login</a>
-          </li>
+          <?php
+            
+            if(!isset($_SESSION['user_id'])) {  //isset : 변수가 설정되어 있는지 검사
+                echo "<li><a href=\"login/login.php\">Administrator Login</a></li>";
+            } else {
+                $user_id = $_SESSION['user_id']; //세션에 저장된 값을 가져오거나 설정햐려면 $_SESSION['변수명'] 사용
+                $user_name = $_SESSION['user_name'];
+                echo "<li><a href=\"administrator/ap.php\">홈페이지 관리</a></li>";
+                echo "<li>$user_name ($user_id)님 환영합니다.</li>";
+                echo "<a href=\"login/logout.php\">[로그아웃]</a></li>";
+            }
+          ?>
         </ul>
       </div>
       <!--/.nav-collapse -->
