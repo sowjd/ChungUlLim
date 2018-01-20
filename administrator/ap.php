@@ -12,7 +12,7 @@
     if(!isset($_SESSION['user_id'])) {
          header("Content-Type: text/html; charset=UTF-8");
          echo "<script>alert('로그인이 필요합니다.');";
-         echo "window.location.replace('login.php');</script>";
+         echo "window.location.replace('../login/login.php');</script>";
          exit;
      }  
     ?>

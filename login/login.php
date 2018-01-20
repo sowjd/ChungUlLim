@@ -23,7 +23,7 @@
             $user_name = $_SESSION['user_name'];
           
             echo "<p><strong>$user_name</strong>($user_id)님은 이미 로그인하고 있습니다. ";
-            echo "<a href=\"index.html\">[돌아가기]</a> ";
+            echo "<a href=\"../index.html\">[돌아가기]</a> ";
             echo "<a href=\"logout.php\">[로그아웃]</a></p>";
             */
         header("Content-Type: text/html; charset=UTF-8");

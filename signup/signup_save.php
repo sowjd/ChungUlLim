@@ -41,7 +41,7 @@ include("../db.php");
   echo "<p>가입완료!</p>";
   echo "</br>\n";
   echo "<p><a href=\"../index.html\">[홈페이지]</a></p>";
-  echo "<p><a href=\"login/login.php\">[로그인]</a></p>";
+  echo "<p><a href=\"../login/login.php\">[로그인]</a></p>";
  }else{
   echo 'fail to insert sql';
  }
