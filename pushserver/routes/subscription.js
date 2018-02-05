@@ -187,7 +187,7 @@ var reception = function(req, res){
             });
         });
     }
-    //res.end();
+    res.end();
 }
 
 var push2Admin = function(result, res){
