@@ -6,7 +6,7 @@ var seoul = require('moment-timezone');
 
 // /process/addSub를 처리
 var addSub = function(req, res){
-    console.log('subscription 모듈 안에 있는 addSub 호출됨.');
+    console.log('subscription 모듈 안에 있는 addSub 호출됨. payload: '+req.body['payload']);
     
     var subscription = req.body['subscriptionJson'];
     
@@ -70,10 +70,24 @@ var addDB = function(req, res){
                 database.db.query(sql, [values], function(err, result){
                    if(err) throw err;
                     console.log('insert 완료!');
-                });
+                    
+                    //관리자에게 새로운 등록을 알림.
+                    var sql2 = "SELECT * FROM Admin WHERE id=?";
+                    var value2 = [
+                        '관리자'
+                    ];
+                    database.db.query(sql2, value2, function(err, result2){
+                     if(err) throw err;
+                     console.log('해당 Obj 찾음.');
+                 
+                     // 해당 Obj에게 푸시
+                    if(result2.length>0){
+                       push2Admin(result2, req, res);
+                    }
+                    });
+                 });
             });  
         }
-
         res.end();
 }
 
@@ -183,15 +197,28 @@ var reception = function(req, res){
                console.log('reception 변경 완료!');
                 
                 // 관리자를 찾아서 푸시 알림: 새로고침 요청
-                findAdmin(req,res);
+                var sql2 = "SELECT * FROM Admin WHERE id=?";
+                var value2 = [
+                    '관리자'
+                ];
+                database.db.query(sql2, value2, function(err, result2){
+                    if(err) throw err;
+                    console.log('해당 Obj 찾음.');
+                
+                    // 해당 Obj에게 푸시
+                    if(result2.length>0){
+                        push2Admin(result2, req, res);
+                    }
+                });
             });
         });
     }
     res.end();
 }
 
-var push2Admin = function(result, res){
-    console.log('subscription 모듈 안에 있는 push2Admin 호출됨.');
+var push2Admin = function(result, req, res){
+    console.log('subscription 모듈 안에 있는 push2Admin 호출됨.'+result[0].id);
+    console.log('payload:'+req.body['payload']);
     
     //var pushSubscription=JSON.parse(req.body['subscriptionJson']);
     
@@ -200,7 +227,7 @@ var push2Admin = function(result, res){
  
     var vapidPublicKey='BOjvSuytEQTw1wjuCnD8vWcwC8OUM7FI35hvHW_JUIuP9DGQ6cqD6N-6amGLEt-CQ-UX8Xk0YZN5nqZdBX1Veak';
     var vapidPrivateKey='abvupHnrar69iH0OeYqtAzNI_yqdDxKQJQTEMUNr5_A';
-    var payload ='please~~~';
+    var payload =req.body['payload'];
     var options = {
                 TTL: 60,
                 vapidDetails: {
@@ -217,30 +244,7 @@ var push2Admin = function(result, res){
         options
     );
     console.log('Push 전송 완료!');
-    res.end();
-}
-
-var findAdmin = function(req, res){
-    console.log('subscription 모듈 안에 있는 findAdmin 호출됨.');
-    
-    var database = req.app.get('database');
-    
-    if(database.db){
-        database.db.connect(function(err){
-           console.log('findAdmin 함수 안에서 DB 연결됨.');
-            var sql = "SELECT * FROM Admin WHERE id=?";
-            var value = [
-                '관리자'
-            ];
-            database.db.query(sql, value, function(err, result){
-               if(err) throw err;
-                console.log('해당 Obj 찾음.');
-                
-                // 해당 Obj에게 푸시
-                push2Admin(result, res);
-            });
-        });
-    }
+    res.end(); // sw-admin.js에서 payload부분 지우고!
 }
 
 module.exports.addSub = addSub;
