@@ -94,7 +94,8 @@ function subscribeUser() {
             async: true, //비동기식
             contentType: 'application/json',
             data: JSON.stringify({
-                "subscriptionJson": JSON.stringify(subscription)
+                "subscriptionJson": JSON.stringify(subscription),
+                "payload": '새로운 카운터손님이 추가되었습니다.'
             }),
             dataType:'json',
             processData: true,
@@ -140,7 +141,8 @@ function unsubscribeUser() {
                 contentType: 'application/json',
                 async: true,
                 data: JSON.stringify({
-                "subscriptionJson": JSON.stringify(delSub)
+                    "subscriptionJson": JSON.stringify(delSub),
+                    "payload": '카운터손님이 삭제되었습니다.'
                 }),
                 dataType:'json',
                 processData: true,

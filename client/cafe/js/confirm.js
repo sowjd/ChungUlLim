@@ -38,20 +38,22 @@ confirmbtn.addEventListener('click', function(){
           console.log('User is unsubscribed');
             
           //server로 reception 변경 요청
-          $.ajax({
-              type: 'POST',
-              url: 'https://hdarts.kr:3000/process/reception',
-              contentType: 'application/json',
-              async: true,
-              data: JSON.stringify({
-              "subscriptionJson": JSON.stringify(confirmedSub)
-              }),
-              dataType:'json',
-              processData: true,
-              success: function(msg){
-                  alert(msg);
-                  console.log('Subscription 전송!');
-              }
+
+        $.ajax({
+            type: 'POST',
+            url: 'https://hdarts.kr:3000/process/reception',
+            async: true, //비동기식
+            contentType: 'application/json',
+            data: JSON.stringify({
+                "subscriptionJson": JSON.stringify(confirmedSub),
+                "payload": '손님이 푸시 알림을 확인했습니다.'
+            }),
+            dataType:'json',
+            processData: true,
+            success: function(msg){
+                alert(msg);
+                console.log('Subscription 전송!');
+            }
           });
         
         //btn 비활성화
