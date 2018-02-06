@@ -48,8 +48,18 @@ function initUI(){
         }
     });
     
+    // 새로고침 시 isSubscribed 갱신
+    swRegistration.pushManager.getSubscription()
+    .then(function(subscription){
+        if(subscription){
+          console.log('객체 이미 있음.');
+          isSubscribed = true;
+        }
+    });
+    
     regadminbtn.addEventListener('change', function(){
-       //regadminbtn.checked = true;
+       //regadminbtn.checked = true;        
+        
         if (isSubscribed) {
             console.log('구독자가 있으니 구독취소하기');
             unsubscribeUser();

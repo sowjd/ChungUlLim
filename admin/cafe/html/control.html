@@ -1,11 +1,5 @@
 <?php
-    include_once "../process/connectDB.php";
-
-    $rlt = $dbConnect->query("SELECT * FROM Admin WHERE id='관리자');
-    while($Admin = mysqli_fetch_array($rlt)){
-        if(strlen($Admin)>30){       
-            
-        }
+    include_once "../process/connectDB.php";  
 ?>
 
 <!DOCTYPE html>
@@ -165,10 +159,17 @@
                 <h1 class = "hello">현황관리 페이지</h1>
                 <div>
                     <label class="switch">
-                        <input type="checkbox" id="regAdmin-btn">
+                        <input type="checkbox" id="regAdmin-btn" <?php 
+                            $admin = $dbConnect->query("SELECT * FROM Admin");
+                            $row_cnt=$admin->num_rows;    
+
+                            if($row_cnt > 0){
+                                echo 'checked';
+                            } ?> 
+                        />
                         <span class="slider round"></span>
                      </label>
-                    <p style="font-size: 1em; color: white;">관리자등록 OFF</p><p style="display:none; font-size: 1em; color: white;">관리자등록 ON</p>
+                    <p style="font-size: 1em; color: white;">관리자등록</p>
                 </div>
             </div>
         </div><!-- /.container -->
@@ -233,12 +234,5 @@
     <!-- include javascript -->
     <script src="../js/control.js"></script>
     <script src="../../../bootstrap/js/bootstrap.min.js"></script>
-    <!-- 관리자 등록 체크박스 동작 -->
-    <script>
-        var check = $("input[type='checkbox']");
-            check.click(function(){
-                $("p").toggle();
-            });
-    </script>
     </body>
 </html>
