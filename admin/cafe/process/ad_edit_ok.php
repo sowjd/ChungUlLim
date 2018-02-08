@@ -6,7 +6,7 @@
 	//$rlt = $connectDB->query("select * from Customer where idx='$bno';");
 	//$event = mysqli_fetch_array($rlt);
 
-    $rlt = $dbConnect->query("update Customer set nickname='".$_POST['nickname']."',time='".$_POST['time']."',reception='".$_POST['reception']."' where idx='".$bno."'");
+    $rlt = $dbConnect->query("update Customer set nickname='".$_POST['nickname']."' where idx='".$bno."'");
     $row=mysqli_fetch_array($rlt);
 
 echo "<script>alert('수정되었습니다.');</script>";

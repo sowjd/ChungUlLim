@@ -51,30 +51,6 @@
 					text-align: center;
 				}
     </style>
-    <!--메뉴 바-->
-    <!--
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="../index.html">ChungUlLim</a>
-        </div>
-        <div id="navbar" class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li><a href="../index.html">Home</a></li>
-            <li><a href="../order/order.php">Order</a></li>
-            <li><a href="../waiting/waitinglist.php">Waiting List</a></li>
-            <li><a href="../event/event.php">Event</a></li>
-            <li><a href="../administrator/login.php">Administrator Login</a></li>
-          </ul>
-        </div>
-      </div>
-    </nav>-->
 
     <div class="image"`>
         <br><br><br>
@@ -96,20 +72,6 @@
                       </tr>
                       <tr>
                           <td height="30"><textarea name="nickname" id="unickname" class="form-control form-control-sm" id="inh" rows="1"><?php echo $Customer['nickname']; ?></textarea>
-                          </td>
-                      </tr>
-                      <tr>
-                          <td class="tb"><label for="utime">Time</label></td>
-                      </tr>
-                      <tr>
-                          <td height="30"><textarea name="time" id="utime" class="form-control form-control-sm" rows="1"><?php echo $Customer['time']; ?></textarea>
-                          </td>
-                      </tr>
-                      <tr>
-                          <td class="tb"><label for="ureception">Reception</label></td>
-                      </tr>
-                      <tr>
-                          <td height="30"><textarea name="reception" id="ureception" class="form-control form-control-sm" rows="1"><?php echo $Customer['reception']; ?></textarea>
                           </td>
                       </tr>
                   </table>
