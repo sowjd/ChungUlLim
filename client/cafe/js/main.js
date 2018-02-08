@@ -12,6 +12,7 @@ var applicationServerKey = urlB64ToUint8Array(vapidPublicKey);
 
 var pushbtn = document.querySelector('#push-btn'); // 진동벨 버튼
 var isSubscribed = false; // 구독 상황 체크
+var rebtn= false; // 사용자가 진동벨 확인 창에서 취소를 클릭할 시 true
 
 if (!('Notification' in window)) {
     console.log('This browser does not support notifications!');
@@ -49,7 +50,6 @@ function initUI(){
     });
     
     pushbtn.addEventListener('change', function(){
-       //pushbtn.checked = true;
         if (isSubscribed) {
             console.log('구독자가 있으니 구독취소하기');
             unsubscribeUser();
@@ -80,7 +80,7 @@ function subscribeUser() {
         userVisibleOnly: true,
         applicationServerKey: applicationServerKey
     })
-    .then(function(subscription) {
+    .then(function(subscription) {   
         console.log('User is subscribed:', subscription);
         isSubscribed = true;
         updateBtn();
@@ -104,6 +104,8 @@ function subscribeUser() {
                 console.log('Subscription 전송!');
             }
           });
+         alert('웹브라우저 창을 닫으셔도 알림을 받으실 수 있습니다. 절전모드 시에는 서비스가 원활하지 않을 수 있습니다. 진동벨을 Off하시면 주문정보가 사라지게 되며 카운터에서 다시 주문하셔야 합니다.');
+  
     })
     .catch(function(err) {
         if (Notification.permission === 'denied') {
@@ -129,7 +131,8 @@ function unsubscribeUser() {
             console.log('Error unsubscribing', error);
           })
           .then(function() {
-            console.log('User is unsubscribed');
+          
+          console.log('User is unsubscribed');
             isSubscribed = false;
             updateBtn();
             
@@ -151,6 +154,7 @@ function unsubscribeUser() {
                     console.log('Subscription 전송!');
                 }
             });
+            
           });
 }
 
