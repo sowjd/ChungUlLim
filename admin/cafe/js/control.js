@@ -11,6 +11,7 @@ var vapidPublicKey = 'BOjvSuytEQTw1wjuCnD8vWcwC8OUM7FI35hvHW_JUIuP9DGQ6cqD6N-6am
 var applicationServerKey = urlB64ToUint8Array(vapidPublicKey);
 
 var regadminbtn = document.querySelector('#regAdmin-btn'); // 관리자 등록 버튼
+var initform = document.querySelector('#initform'); // 마감 form
 var isSubscribed = false; // 구독 상황 체크
 
 if (!('Notification' in window)) {
@@ -52,7 +53,7 @@ function initUI(){
     swRegistration.pushManager.getSubscription()
     .then(function(subscription){
         if(subscription){
-          console.log('객체 이미 있음.');
+          console.log('이미 구독되어 있음.');
           isSubscribed = true;
         }
     });
@@ -90,7 +91,8 @@ function subscribeUser() {
             contentType: 'application/json',
             data: JSON.stringify({
                 "subscriptionJson": JSON.stringify(subscription),
-                "tag": 'add'
+                "tag": 'add',
+                "currentUserID": currentUserID
             }),
             dataType:'json',
             processData: true,
@@ -137,7 +139,8 @@ function unsubscribeUser() {
                 async: true,
                 data: JSON.stringify({
                     "subscriptionJson": JSON.stringify(delSub),
-                    "tag": 'delete'
+                    "tag": 'delete',
+                    "currentUserID": currentUserID
                 }),
                 dataType:'json',
                 processData: true,
@@ -174,3 +177,11 @@ function urlB64ToUint8Array(base64String) {
     }
     return outputArray;
 }
+
+initform.addEventListener('submit',function(e){
+    var confirminit = confirm('관리자등록 해제와 주문이 없음을 확인하셨습니까?');
+            if(!confirminit){
+                e.preventDefault();
+            }
+})
+
