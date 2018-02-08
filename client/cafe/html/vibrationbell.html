@@ -23,6 +23,7 @@
             background-attachment: fixed;
             height: calc(100vh);
             min-height: 200px;
+            padding-top: 0px;
         }
         .image.container{
         position:absolute;
@@ -32,6 +33,31 @@
         color:white;
         font-size:3rem;
         text-align: center;
+        }
+        .content p{
+            color:black;
+            margin: 5px;
+        }
+        .howtouse{
+            width:90%;
+            color: burlywood;
+            font-size: 0.6rem;
+            text-align: left;
+            background-color: white;
+            border: 3px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            margin-left: 5%;
+        }
+        .caution{
+            width:90%;
+            color: burlywood;
+            font-size: 0.6rem;
+            text-align: left;
+            background-color: white;
+            border: 3px;
+            border-radius: 5px;
+            margin-left: 5%;
         }
         
         /* The switch - the box around the slider */
@@ -97,9 +123,15 @@
         p {
           margin:0px;
           display:inline-block;
-          font-size:3em;
+          font-size:2.5em;
           font-weight:bold;
           color: white;
+        }
+        
+        h3 {
+            color: white;
+            font-weight: bold;
+            margin:0px;
         }
     </style>
     <div class="image"`>
@@ -113,7 +145,22 @@
             <input type="checkbox" id="push-btn">
             <span class="slider round"></span>
         </label>
-        <p>진동벨 OFF</p><p style="display:none;">진동벨 ON</p>
+        <p id="b1">진동벨 OFF</p><p id="b2" style="display:none;">진동벨 ON</p>
+        
+        <!-- 주의사항 -->
+        <div class="content">
+            <h3 style="text-align: center">사용방법</h3>
+            <div class="howtouse">
+                <p>1. 진동벨을 클릭하여 ON 한다.</p>
+                <p>2. 브라우저 창을 닫고 푸시 알림을 기다린다.</p>
+            </div>
+            <h3 style="text-align: center">주의사항</h3>
+            <div class="caution">
+                <p>1. 휴대폰이 절전모드시 서비스가 원활하지 않을 수 있습니다.</p>
+                <p>2. 진동벨을 Off하시면 주문정보가 사라지며 카운터에서 재주문하셔야하니 주의하시기 바랍니다.</p>
+                <p>3. 크롬, 삼성, 오페라, 파이어폭스 웹브라우저에서 사용 가능한 서비스입니다.</p>
+            </div>
+        </div>
 
     </div>
         
@@ -123,7 +170,15 @@
     <script>
         var check = $("input[type='checkbox']");
             check.click(function(){
-                $("p").toggle();
+                var b1 = document.getElementById('b1');
+                var b2 = document.getElementById('b2');
+                if(b2.style.display === "none"){
+                    b2.style.display = "inline-block";
+                    b1.style.display = "none";
+                }else{
+                    b1.style.display = "inline-block";
+                    b2.style.display = "none";
+                }
             });
     </script>
 </body>
