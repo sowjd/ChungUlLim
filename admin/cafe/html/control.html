@@ -1,5 +1,13 @@
 <?php
-    include_once "../process/connectDB.php";  
+    session_start();
+    include_once "../process/connectDB.php"; 
+    
+    if(isset($_SESSION['auth'])){
+        echo "<script>console.log('인증된 ID: ".$_SESSION['auth']."');</script>";
+    }else{
+        echo "<script>alert('잘못된 접근입니다. 로그인해주세요.:)')</script>";
+        header("Refresh:0; url='login.html'");
+    }
 ?>
 
 <!DOCTYPE html>
@@ -73,6 +81,20 @@
         .text-center{
             text-align: center;
         }
+        .initbtn{
+            width: 100px;
+            height: 50px;
+            background-color: burlywood;
+            color: white;
+            font: bold 15px arial, sans-serif;
+            border-radius: 15px;
+            margin-left: 8px;
+        }
+        .curUser{
+            color: white;
+            font-size: 1.5rem;
+            text-align: left;
+        }
         
         /* The switch - the box around the slider */
         .switch {
@@ -82,10 +104,8 @@
           height: 34px;
           vertical-align:middle;
         }
-
         /* Hide default HTML checkbox */
         .switch input {display:none;}
-
         /* The slider */
         .slider {
           position: absolute;
@@ -98,7 +118,6 @@
           -webkit-transition: .4s;
           transition: .4s;
         }
-
         .slider:before {
           position: absolute;
           content: "";
@@ -110,15 +129,12 @@
           -webkit-transition: .4s;
           transition: .4s;
         }
-
         input:checked + .slider {
           background-color: #2196F3;
         }
-
         input:focus + .slider {
           box-shadow: 0 0 1px #2196F3;
         }
-
         input:checked + .slider:before {
           -webkit-transform: translateX(26px);
           -ms-transform: translateX(26px);
@@ -126,41 +142,15 @@
         }
     </style>
 
-    <!--메뉴 바-->
-    <!--
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="../index.html">ChungUlLim</a>
-        </div>
-        <div id="navbar" class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li><a href="../index.html">Home</a></li>
-            <li><a href="../order/order.php">Order</a></li>
-            <li><a href="../waiting/waitinglist.php">Waiting List</a></li>
-            <li><a href="../event/event.php">Event</a></li>
-            <li><a href="../administrator/login.php">Administrator Login</a></li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-    -->
-
 <div class="image"`>
-        <br><br><br>
+    <p class="curUser">관리자ID '<?= $_SESSION['auth'] ?>' 가 접속 중입니다.</p>
         <div class="container">
-            <div class="starter-template">
+            <div class="starter-template" >
                 <h1 class = "hello">현황관리 페이지</h1>
-                <div>
+                <div style="display: inline-block;">
                     <label class="switch">
                         <input type="checkbox" id="regAdmin-btn" <?php 
-                            $admin = $dbConnect->query("SELECT * FROM Admin");
+                            $admin = $dbConnect->query("SELECT * FROM AdminCafe WHERE subscription IS NOT NULL");
                             $row_cnt=$admin->num_rows;    
 
                             if($row_cnt > 0){
@@ -170,6 +160,16 @@
                         <span class="slider round"></span>
                      </label>
                     <p style="font-size: 1em; color: white;">관리자등록</p>
+                </div>
+                <div style="display: inline-block; float: right">
+                    <form id="initform" method="POST" action="../process/logout.php">
+                        <input class="initbtn" type="submit" value="로그아웃">
+                    </form>
+                </div>
+                <div style="display: inline-block; float: right">
+                    <form id="initform" method="POST" action="../process/init.php">
+                        <input class="initbtn" type="submit" value="마감하기">
+                    </form>
                 </div>
             </div>
         </div><!-- /.container -->
@@ -232,7 +232,9 @@
     </div>
 
     <!-- include javascript -->
+    <script type="text/javascript">var currentUserID = '<?= $_SESSION['auth'] ?>'</script>
     <script src="../js/control.js"></script>
     <script src="../../../bootstrap/js/bootstrap.min.js"></script>
+
     </body>
 </html>
