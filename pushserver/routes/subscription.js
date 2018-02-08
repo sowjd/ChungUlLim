@@ -72,9 +72,9 @@ var addDB = function(req, res){
                     console.log('insert 완료!');
                     
                     //관리자에게 새로운 등록을 알림.
-                    var sql2 = "SELECT * FROM Admin WHERE id=?";
+                    var sql2 = "SELECT * FROM AdminCafe WHERE subscription IS NOT NULL";
                     var value2 = [
-                        '관리자'
+                        
                     ];
                     database.db.query(sql2, value2, function(err, result2){
                      if(err) throw err;
@@ -95,8 +95,6 @@ var addDB = function(req, res){
 // /process/delSub를 처리
 var delSub = function(req,res){
     console.log('subscripton 모듈 안에 있는 delsub 호출됨.');
-    
-    //var subscription = req.body['subscriptionJson'];
     
     var database = req.app.get('database');
     var delsub = JSON.parse(req.body['subscriptionJson']);
@@ -154,8 +152,6 @@ var findClient = function(req, res){
 var push2Client = function(result, res){
     console.log('subscription 모듈 안에 있는 push2Client 호출됨.');
     
-    //var pushSubscription=JSON.parse(req.body['subscriptionJson']);
-    
     console.log('pushsubscription: ' +JSON.stringify(result[0].subscription));
     var pushSubscription = JSON.parse(result[0].subscription);
  
@@ -197,9 +193,9 @@ var reception = function(req, res){
                console.log('reception 변경 완료!');
                 
                 // 관리자를 찾아서 푸시 알림: 새로고침 요청
-                var sql2 = "SELECT * FROM Admin WHERE id=?";
+                var sql2 = "SELECT * FROM AdminCafe WHERE subscription IS NOT NULL";
                 var value2 = [
-                    '관리자'
+                    
                 ];
                 database.db.query(sql2, value2, function(err, result2){
                     if(err) throw err;
@@ -217,34 +213,34 @@ var reception = function(req, res){
 }
 
 var push2Admin = function(result, req, res){
-    console.log('subscription 모듈 안에 있는 push2Admin 호출됨.'+result[0].id);
+    console.log('subscription 모듈 안에 있는 push2Admin 호출됨.');
     console.log('payload:'+req.body['payload']);
     
-    //var pushSubscription=JSON.parse(req.body['subscriptionJson']);
-    
-    console.log('pushsubscription: ' +JSON.stringify(result[0].subscription));
-    var pushSubscription = JSON.parse(result[0].subscription);
- 
-    var vapidPublicKey='BOjvSuytEQTw1wjuCnD8vWcwC8OUM7FI35hvHW_JUIuP9DGQ6cqD6N-6amGLEt-CQ-UX8Xk0YZN5nqZdBX1Veak';
-    var vapidPrivateKey='abvupHnrar69iH0OeYqtAzNI_yqdDxKQJQTEMUNr5_A';
-    var payload =req.body['payload'];
-    var options = {
-                TTL: 60,
-                vapidDetails: {
-                subject: 'mailto:dmdwns67@naver.com',
-                publicKey: vapidPublicKey,
-                privateKey: vapidPrivateKey
-                    }
-                };
-    
-    //push2Client
-    webPush.sendNotification(
-        pushSubscription,
-        payload,
-        options
-    );
+    for(var num in result){
+            console.log('pushsubscription: ' +JSON.stringify(result[num].subscription));
+            var pushSubscription = JSON.parse(result[num].subscription);
+
+            var vapidPublicKey='BOjvSuytEQTw1wjuCnD8vWcwC8OUM7FI35hvHW_JUIuP9DGQ6cqD6N-6amGLEt-CQ-UX8Xk0YZN5nqZdBX1Veak';
+            var vapidPrivateKey='abvupHnrar69iH0OeYqtAzNI_yqdDxKQJQTEMUNr5_A';
+            var payload =req.body['payload'];
+            var options = {
+                        TTL: 60,
+                        vapidDetails: {
+                        subject: 'mailto:dmdwns67@naver.com',
+                        publicKey: vapidPublicKey,
+                        privateKey: vapidPrivateKey
+                            }
+                        };
+
+            //push2Client
+            webPush.sendNotification(
+                pushSubscription,
+                payload,
+                options
+            );
+    }
     console.log('Push 전송 완료!');
-    res.end(); // sw-admin.js에서 payload부분 지우고!
+    res.end(); 
 }
 
 module.exports.addSub = addSub;
