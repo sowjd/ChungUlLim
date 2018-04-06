@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width" , initial-scale="1">
+    <meta charset="utf-8">
+    <title>Push Test</title>
+    <link rel="stylesheet" href="../../../bootstrap/css/bootstrap.css">
+</head>
+
+<body>
+    <style>
+        .image {
+            position: relative;
+            height: 726px;
+            background: url(../../../images/orange.jpg) no-repeat center center;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            height: calc(100vh);
+            min-height: 200px;
+        }
+
+        .image.container {
+            position: absolute;
+            color: white;
+        }
+
+        .hello {
+            color: white;
+            font-size: 3rem;
+            text-align: center;
+        }
+
+        .btn-panel {
+            text-align: center;
+        }
+
+        #confirm-btn {
+            width: 25vw;
+            height: 7vh;
+            text-shadow: 0.5px;
+            text-align: center;
+            font-size: 1.3em;
+            background-color: rgba(197, 195, 195, 0.904);
+        }
+
+        p {
+            margin: 0px;
+            font-size: 1.7rem;
+            text-align: center;
+            color: rgb(199, 194, 194);
+        }
+    </style>
+    <div class="image" `>
+        <br>
+        <br>
+        <br>
+        <div class="container">
+                <div class="jumbotron">
+            <h1 class="hello">푸시 알림 확인</h1>
+            <br>
+            <?php
+            $rlt = $dbConnect->query("SELECT * FROM EventList");
+            while($List = mysqli_fetch_array($rlt)){
+                $content=$List["content"];
+                //echo strlen($content);
+                if(strlen($content)>30){
+                    $cut = substr($content, 0, 60);   
+                    $content= $cut . "...";
+                }
+            ?>
+            <!--
+            <div class="btn-panel">
+                <button id="confirm-btn">확인완료</button>
+            </div>
+            <br><p>이벤트 알림을 수신하셨다면 확인완료 버튼을 클릭해주세요.</p>
+            <p>고객님의 수신확인 여부를 통해 알림이 재발신 됩니다.</p>
+            !-->
+        </div>
+        </div>
+    </div>
+        
+    <script src="../js/confirm.js"></script>
+    <script src="../../../bootstrap/js/jquery-3.3.1.min.js"></script>
+    <script src="../../../bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>

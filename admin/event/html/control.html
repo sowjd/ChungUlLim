@@ -1,0 +1,193 @@
+<?php
+    include_once "../process/connectDB.php";
+?>
+
+    <!DOCTYPE html>
+    <html lang="ko">
+
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="utf-8">
+        <title>Control Page</title>
+        <script src="../../../bootstrap/js/jquery-3.3.1.min.js"></script>
+        <link rel="stylesheet" href="../../../bootstrap/css/bootstrap.css">
+    </head>
+
+    <body>
+        <style>
+            body {
+                margin: 0;
+            }
+
+            .image {
+                position: relative;
+                height: 726px;
+                background: url(../../../images/orange.jpg) no-repeat center center;
+                -webkit-background-size: cover;
+                -moz-background-size: cover;
+                -o-background-size: cover;
+                background-size: cover;
+                background-position: center;
+                background-attachment: fixed;
+                height: calc(100vh);
+                min-height: 200px;
+            }
+
+            .image.container {
+                position: absolute;
+                color: white;
+            }
+
+            .hello {
+                color: white;
+                font-size: 3rem;
+                text-align: center;
+            }
+
+            .event_area {
+                position: absolute;
+                color: white;
+            }
+
+            .text-center {
+                text-align: center;
+            }
+
+            /* The switch - the box around the slider */
+
+            .switch {
+                position: relative;
+                display: inline-block;
+                width: 60px;
+                height: 34px;
+                vertical-align: middle;
+            }
+
+            /* Hide default HTML checkbox */
+
+            .switch input {
+                display: none;
+            }
+
+            /* The slider */
+
+            .slider {
+                position: absolute;
+                cursor: pointer;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: #ccc;
+                -webkit-transition: .4s;
+                transition: .4s;
+            }
+
+            .slider:before {
+                position: absolute;
+                content: "";
+                height: 26px;
+                width: 26px;
+                left: 4px;
+                bottom: 4px;
+                background-color: white;
+                -webkit-transition: .4s;
+                transition: .4s;
+            }
+
+            input:checked+.slider {
+                background-color: #2196F3;
+            }
+
+            input:focus+.slider {
+                box-shadow: 0 0 1px #2196F3;
+            }
+
+            input:checked+.slider:before {
+                -webkit-transform: translateX(26px);
+                -ms-transform: translateX(26px);
+                transform: translateX(26px);
+            }
+        </style>
+        <div class="image">
+            </br>
+            </br>
+            </br>
+
+            <div class="container">
+                <div class="jumbotron">
+                    <button type="button" class="btn pull-right btn-primary" onclick="location.href = '../process/ad_new.php'">+ New Event</button>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+
+                                <th width="15%">Title</th>
+                                <th width="20%">Content</th>
+                                <th width="10%">term</th>
+                                <th width="15%">Image</th>
+                                <th width="20%">Action</th>
+                            </tr>
+                        </thead>
+                        <?php
+                                $rlt = $dbConnect->query("SELECT * FROM EventList");
+                                while($List = mysqli_fetch_array($rlt)){
+                                    $content=$List["content"];        
+                        ?>
+                            <script type="text/javascript" charset="utf-8">
+                                function sendPush(idx, title, content) {
+                                    var confirmPush = confirm('푸시 알림을 보내시겠습니까?');
+                                    if (confirmPush) {
+                                        $.ajax({
+                                            type: 'POST',
+                                            url: 'https://chunggak.kr:3000/process/sendPush',
+                                            async: true,
+                                            contentType: 'application/json',
+                                            data: JSON.stringify({
+                                                "idx": idx,
+                                                "findClientSql": "SELECT subscription FROM CustomerEvent",
+                                                "title" : title,
+                                                "content" : content
+                                            }),
+                                            dataType: 'json',
+                                            processData: true,
+                                            success: function (data) {
+                                                alert("푸쉬 알림을 전송했습니다.");
+                                            }
+                                        });
+                                    }
+                                    return;
+                                }    
+                            </script>
+                            <tbody>
+                                <tr>
+
+                                    <td width="15%">
+                                        <?php echo $List['title']?>
+                                    </td>
+                                    <td width="20%">
+                                        <?php echo $content?>
+                                    </td>
+                                    <td width="10%">
+                                        <?php echo $List['term'];?>
+                                    </td>
+                                    <td width="15%">
+                                        <img src="../process/img/<?php echo $List['imgfile'];?>" alt="" />
+                                    </td>
+                                    <td width="20%" class="url">
+                                        <a href="#" onclick="sendPush('<?php echo $List['idx']; ?>','<?php echo $List['title']; ?>','<?php echo $List['content']; ?>')">Push</a>
+                                        <br>
+                                        <a href="../process/ad_edit.php?idx=<?php echo $List['idx']; ?>">Edit</a>
+                                        <br>
+                                        <a href="../process/ad_delete.php?idx=<?php echo $List['idx']; ?>">Delete</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <?php } ?>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </body>
+
+    </html>
