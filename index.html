@@ -1,163 +1,52 @@
+<!-- 
+손님용
+-->
 <!DOCTYPE html>
-<?php session_start(); ?>
-
+<html>
 <head>
-  <!-- Set the viewport -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Set character encoding -->
-  <meta charset="utf-8">
-
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-  <meta name="description" content="">
-  <meta name="author" content="">
-
-  <style>
-    /*###### 이부분이 이미지에대한 CSS옵션입니다. ######*/
-
-    body {
-      margin: 0;
-    }
-
-    .image {
-      position: relative;
-      height: 726px;
-      background: url(cafeimage.jpg) no-repeat center center;
-      -webkit-background-size: cover;
-      -moz-background-size: cover;
-      -o-background-size: cover;
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
-      height: calc(100vh);
-      min-height: 200px;
-    }
-
-    .image.container {
-      position: absolute;
-      color: white;
-    }
-
-    .hello {
-      color: white;
-      font-size: 7rem;
-      text-align: right;
-
-    }
-
-    .lead {
-      color: white;
-      font-size: 7rem;
-      text-align: right;
-
-    }
-
-    /*###### 여기까지 ######*/
-  </style>
-
-  <link rel="icon" href="../../favicon.ico">
-
-  <!-- Set title -->
-  <title>Welcome</title>
-  <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
-  <!--  <link rel = "stylesheet" href="css/site.css"> !-->
-
-  <!-- Bootstrap core CSS -->
-  <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- Custom styles for this template -->
-  <!--   <link href="starter-template.css" rel="stylesheet"> !-->
-
-  <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-  <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-  <!--  <script src="../../assets/js/ie-emulation-modes-warning.js"></script> !-->
-
-  <!--  <script src="bootstrap/js/jquery-3.1.0.min.js"></script> !-->
+    <meta name="viewport" content="width=device-width", initial-scale="1">
+    <meta charset="utf-8">
+    <title>Push Test</title>
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.css"> 
 </head>
-
 <body>
+    <style>
+        .image{
+            position : relative;
+            height: 726px;
+            background: url(admin/images/darkcafeimage.jpg) no-repeat center center;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            height: calc(100vh);
+            min-height: 200px;
+        }
+        .image.container{
+        position:absolute;
+        color:white;
+        }
+        .hello{
+        color:white;
+        font-size:3rem;
+        text-align: center;
+        }
 
-  <nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false"
-          aria-controls="navbar">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="#">ChungUlLim</a>
-      </div>
-      <div id="navbar" class="collapse navbar-collapse">
-        <ul class="nav navbar-nav">
-          <li class="active">
-            <a href="#">Home</a>
-          </li>
-          <li>
-            <a href="#order">Order</a>
-          </li>
-          <li>
-            <a href="#waitinglist">Waiting List</a>
-          </li>
-          <li>
-            <a href="#event">Event</a>
-          </li>
-          <?php
+    </style>
+    <div class="image"`>
+        <br><br><br>
+        <div class="container">
+            <div class="starter-template">
+                <h1 class = "hello">INDEX PAGE</h1>
+            </div>
             
-            if(!isset($_SESSION['user_id'])) {  //isset : 변수가 설정되어 있는지 검사
-                echo "<li><a href=\"login/login.php\">Administrator Login</a></li>";
-            } else {
-                $user_id = $_SESSION['user_id']; //세션에 저장된 값을 가져오거나 설정햐려면 $_SESSION['변수명'] 사용
-                $user_name = $_SESSION['user_name'];
-                echo "<li><a href=\"administrator/ap.php\">홈페이지 관리</a></li>";
-                echo "<li>$user_name ($user_id)님 환영합니다.</li>";
-                echo "<a href=\"login/logout.php\">[로그아웃]</a></li>";
-            }
-          ?>
-        </ul>
-      </div>
-      <!--/.nav-collapse -->
+        </div>
+        
     </div>
-  </nav>
 
-  <div class="image" `>
-
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <div class="container">
-      <div class="starter-template">
-        <h1 class="hello">聽 울 림</h1>
-        <p class="lead">마음을 울리는 맑은 소리</p>
-      </div>
-    </div>
-    <!-- /.container -->
-
-  </div>
-  <!--
-  <h1>Homepage</h1>
-  <button class="js-notify-btn">알림 테스트</button>
-  <button disabled class="js-push-btn">알림 받기 허용</button><br><br>
-    -->
-  <section class="js-sub-endpoint" style="display:none;width:80%">
-    <h3 calss="subscription">Subscription Object:</h3>
-    <code class="js-subscription-json"></code>
-    <br>
-    <br>
-    <br>
-    <!--<h3>Endpoint URL:</h3>
-    <code class="js-endpoint-url"></code>-->
-  </section>
-
-  <!-- Include script -->
-  <!-- <script src="bootstrap/js/requestSubscription.js"></script> !-->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
-
+    <script src="/bootstrap/js/jquery-3.3.1.min.js"></script>
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
 </body>
-
 </html>
