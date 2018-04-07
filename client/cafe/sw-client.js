@@ -14,21 +14,6 @@ self.addEventListener('install', function(event) {
   );
 });
 
-//다른 페이지로 이동하거나 새로고침 하면 service worker가 fetch event 수신
-self.addEventListener('fetch', function(event) {
-  event.respondWith(
-    caches.match(event.request)	//요청을 확인, service worker가 생성한 캐시에 캐시된 결과가 있는지 찾음, 응답이 있다면 캐시된 값을 반환 otherwise, fetch결과를 반환
-      .then(function(response) {
-        // Cache hit - return response
-        if (response) {
-          return response;
-        }
-        return fetch(event.request);
-      }
-    )
-  );
-});
-
 self.addEventListener('notificationclose', function(e) {
     var notification = e.notification;
     var primaryKey = notification.data.primaryKey;

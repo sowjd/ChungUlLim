@@ -56,7 +56,7 @@
         <br><br><br>
         <div class="container">
             <div class="starter-template">
-                <h1 class = "hello">Push Page</h1>
+                <h1 class = "hello">Edit Page</h1>
             </div>
         </div><!-- /.container -->
 
@@ -71,7 +71,14 @@
                           <td class="tb"><label for="unickname">Nickname</label></td>
                       </tr>
                       <tr>
-                          <td height="30"><textarea name="nickname" id="unickname" class="form-control form-control-sm" id="inh" rows="1"><?php echo $Customer['nickname']; ?></textarea>
+                          <td height="30"><textarea name="nickname" id="nickname" class="form-control form-control-sm" id="inh" rows="1"><?php echo $Customer['nickname']; ?></textarea>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td class="tb"><label for="state">State</label></td>
+                      </tr>
+                      <tr>
+                          <td height="30"><textarea name="state" id="state" class="form-control form-control-sm" rows="1"><?php echo $Customer['reception']; ?></textarea>
                           </td>
                       </tr>
                   </table>
