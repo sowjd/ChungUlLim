@@ -45,6 +45,18 @@ else if($_FILES['upload']['size'] == 0) {
 	echo "<script>
 	alert('이미지 첨부를 하지 않으셨습니다.\\n 편집하기 버튼을 눌러 추가할 수 있습니다.');
 		</script>";
+		if(is_uploaded_file($_FILES['upload']['tmp_name'])){
+			if(!(move_uploaded_file($_FILES['upload']['tmp_name'], $path))) {
+				echo "파일저장 실패";
+			}
+		}
+			$query = "Insert into EventList(title, content, term) values ('$title', '$content', '$term')";
+			$rlt = $dbConnect->query($query);
+			if(!$rlt)
+			echo "DB저장 실패";
+			
+			
+			$dbConnect -> close();
 }
 
 else if(!(($type == 'image/jpg') || ($type == 'image/png') || ($type == 'image/jpeg') || ($type == 'image/bmp')

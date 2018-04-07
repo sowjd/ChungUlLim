@@ -51,6 +51,7 @@
 					text-align: center;
 				}
     </style>
+
  <div class="image"`>
         <br><br><br>
         <div class="container">
@@ -62,7 +63,7 @@
         <div class ="container">
         <div class = "jumbotron">
         <div id="push_edit">
-        <form action="ad_edit_ok.php" method="post">
+        <form action="ad_edit_ok.php" method="post" enctype="multipart/form-data">
         <input type="hidden" name="idx" value="<?=$bno?>">
         <div class="form-group">
           <label for="title">제목</label>
@@ -78,9 +79,9 @@
         </div>
 
         <div class="form-group">
-        이미지 기존거 어떻게 나타내냐...ㅠㅠ
-<input type="file" size=100 name="upload"><?php echo $List['imgfile']; ?><hr>
+<input type="file" size=100 name="upload"><hr>
     </div>
+    기존파일 : <?php echo $List['imgfile']; ?>
 <button type="submit" class="btn btn-primary pull-right">완료</button>
       </form>
       </div>
@@ -89,49 +90,6 @@
   </body>
   </html>
 
-
-
-<!--
-
-  
-        <div class ="container">
-        <div class = "jumbotron">
-        <div id="push_edit">
-          <form action="ad_edit_ok.php" method="post">
-          <input type="hidden" name="idx" value="<?=$bno?>">
-                  <table id="eventWrite">
-                      <tr>
-                          <td class="tb"><label for="unickname">Nickname</label></td>
-                      </tr>
-                      <tr>
-                          <td height="30"><textarea name="nickname" id="unickname" class="form-control form-control-sm" id="inh" rows="1"><?php echo $Customer['nickname']; ?></textarea>
-                          </td>
-                      </tr>
-                      <tr>
-                          <td class="tb"><label for="utime">Time</label></td>
-                      </tr>
-                      <tr>
-                          <td height="30"><textarea name="time" id="utime" class="form-control form-control-sm" rows="1"><?php echo $Customer['time']; ?></textarea>
-                          </td>
-                      </tr>
-                      <tr>
-                          <td class="tb"><label for="ureception">Reception</label></td>
-                      </tr>
-                      <tr>
-                          <td height="30"><textarea name="reception" id="ureception" class="form-control form-control-sm" rows="1"><?php echo $Customer['reception']; ?></textarea>
-                          </td>
-                      </tr>
-                  </table>
-              <div class="bt_se">
-                  <input type="submit" class="btn btn-default btn-sm" value="수정하기">
-              </div>
-          </form>
-        </div>
-        </div>
-        </div>
-
-    </div>
-!-->
 <script src="../../../bootstrap/js/jquery-3.3.1.min.js"></script>
 <script src="../../../bootstrap/js/bootstrap.js"></script>
 
