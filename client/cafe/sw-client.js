@@ -32,6 +32,8 @@ self.addEventListener('fetch', function(event) {
 self.addEventListener('notificationclose', function(e) {
     var notification = e.notification;
     var primaryKey = notification.data.primaryKey;
+    var idx = notification.data.idx;
+    var tag = notification.data.tag;
 
     console.log('Closed notification: ' + primaryKey);
   });
@@ -39,13 +41,20 @@ self.addEventListener('notificationclose', function(e) {
   self.addEventListener('notificationclick', function(e) {
     var notification = e.notification;
     var primaryKey = notification.data.primaryKey;
+    var tag = notification.data.tag;
+    var idx = notification.data.idx;
     var action = e.action;
 
     if (action === 'close') {
       notification.close();
     } else {
-      clients.openWindow('/client/event/html/' + primaryKey + '.html?idx='+notification.data.idx);
-      notification.close();
+      if(tag === 'cafe'){
+            clients.openWindow('/client/cafe/html/' + primaryKey + '.html');
+            notification.close();
+      }else if(tag === 'event'){
+            clients.openWindow('/client/event/html/' + primaryKey + '.html?idx=' + idx);
+            notification.close();  
+      }
     }
   });
 
@@ -62,6 +71,7 @@ self.addEventListener('push', function(e) {
             data: {
               dateOfArrival: Date.now(),
               primaryKey: 'showEvent',
+              tag: plz.tag,
               idx: plz.idx
             },
             actions: [
@@ -82,7 +92,8 @@ self.addEventListener('push', function(e) {
             //vibrate: [500, 700, 500, 700, 500, 700, 500, 700, 500],
             data: {
               dateOfArrival: Date.now(),
-              primaryKey: 'confirmNotification'
+              primaryKey: 'confirmNotification',
+              tag: plz.tag,
             },
             actions: [
               {action: 'explore', title: '알림 확인',

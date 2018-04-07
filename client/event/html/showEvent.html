@@ -1,3 +1,8 @@
+<?php
+    include_once "../process/connectDB.php"; 
+    $idx = $_GET["idx"];
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -61,30 +66,19 @@
         <br>
         <div class="container">
                 <div class="jumbotron">
-            <h1 class="hello">푸시 알림 확인</h1>
+            <h1 class="hello">이벤트 확인</h1>
             <br>
             <?php
-            $rlt = $dbConnect->query("SELECT * FROM EventList");
-            while($List = mysqli_fetch_array($rlt)){
-                $content=$List["content"];
-                //echo strlen($content);
-                if(strlen($content)>30){
-                    $cut = substr($content, 0, 60);   
-                    $content= $cut . "...";
-                }
+            $rlt = $dbConnect->query("SELECT * FROM EventList WHERE idx = '$idx'");
+            $List = mysqli_fetch_array($rlt);   
             ?>
-            <!--
-            <div class="btn-panel">
-                <button id="confirm-btn">확인완료</button>
-            </div>
-            <br><p>이벤트 알림을 수신하셨다면 확인완료 버튼을 클릭해주세요.</p>
-            <p>고객님의 수신확인 여부를 통해 알림이 재발신 됩니다.</p>
-            !-->
+            <p><?php echo $List['title']?></p>
+            <p><?php echo $List['content']?></p>
         </div>
         </div>
     </div>
         
-    <script src="../js/confirm.js"></script>
+    <!--<script src="../js/confirm.js"></script>-->
     <script src="../../../bootstrap/js/jquery-3.3.1.min.js"></script>
     <script src="../../../bootstrap/js/bootstrap.min.js"></script>
 </body>
