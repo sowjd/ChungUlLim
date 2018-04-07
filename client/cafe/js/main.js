@@ -72,6 +72,7 @@ function subscribeUser() {
         
         //server로 subscription 추가요청 전송
         console.log('Subscription 추가 요청 전송 시도. Json:'+JSON.stringify(subscription));
+        var dateTime = getDatetime();
         
         $.ajax({
             type: 'POST',
@@ -80,11 +81,12 @@ function subscribeUser() {
             contentType: 'application/json',
             data: JSON.stringify({
                 "subscriptionJson": JSON.stringify(subscription),
-                "payload": '새로운 카운터손님이 추가되었습니다.',
-                "domain": 'hdarts.kr'
-                //아래 2개는 소정이 요구부분. /pushserver/routes/subscription.js에 add 부분 참고.
-                //"sql": 'INSERT INTO Customer(nickname, subscription, time, reception) VALUES ?',
-                //"values": "카운터손님&"+ JSON.stringify(subscription) +"&12345&수신대기"
+                "payload": '새로운 구독자 추가되었습니다.',
+                "domain": 'hdarts.kr',
+                "addEventDBSql": "INSERT INTO CustomerEvent(subscription, subscriptionDatetime, reception) VALUES ?",
+                "addEventDBValue": JSON.stringify(subscription) + "&" + dateTime + "&수신대기",
+                "addCafeDBSql": "INSERT INTO Customer(nickname, subscription, time, reception, domain) VALUES ?",
+                "addCafeDBValue": "hdarts구독자&"+ JSON.stringify(subscription) +"&"+ dateTime + "&수신 대기&hdarts.kr"
             }),
             dataType:'json',
             processData: true,
@@ -134,8 +136,10 @@ function unsubscribeUser() {
                 async: true,
                 data: JSON.stringify({
                     "subscriptionJson": JSON.stringify(delSub),
-                    "payload": '카운터손님이 삭제되었습니다.',
-                    "domain": 'hdarts.kr'
+                    "payload": 'hdarts.kr구독자가 삭제되었습니다.',
+                    "domain": 'hdarts.kr',
+                    "delCafeDBSql":"DELETE FROM Customer WHERE JSON_EXTRACT(subscription, '$.endpoint') = ?",
+                    "delEventDBSql":"DELETE FROM CustomerEvent WHERE JSON_EXTRACT(subscription, '$.endpoint') = ?"
                 }),
                 dataType:'json',
                 processData: true,
@@ -143,8 +147,7 @@ function unsubscribeUser() {
                     alert(msg);
                     console.log('Subscription 전송!');
                 }
-            });
-            
+            });     
           });
 }
 
@@ -179,4 +182,23 @@ function urlB64ToUint8Array(base64String) {
       outputArray[i] = rawData.charCodeAt(i);
     }
     return outputArray;
+}
+
+function getDatetime() {
+    var temp = new Date();
+    var year = temp.getFullYear().toString();
+    var month = pad(temp.getMonth() + 1, 2);
+    var day = pad(temp.getDate(), 2);
+    var hour = pad(temp.getHours(), 2);
+    var min = pad(temp.getMinutes(), 2);
+    var sec = pad(temp.getSeconds(), 2);
+    var datetime = year + '-' + month + '-' + day + ' ' + hour + ':' + min + ':' + sec;
+    return datetime;
+}
+
+function pad(num, len) {
+    var str = num.toString();
+    while (str.length < len)
+        str = '0' + str;
+    return str
 }

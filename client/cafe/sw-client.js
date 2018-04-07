@@ -44,30 +44,55 @@ self.addEventListener('notificationclose', function(e) {
     if (action === 'close') {
       notification.close();
     } else {
-      clients.openWindow('/client/cafe/html/' + primaryKey + '.html');
+      clients.openWindow('/client/event/html/' + primaryKey + '.html?idx='+notification.data.idx);
       notification.close();
     }
   });
 
-    self.addEventListener('push', function(e) {
-  var options = {
-    body: '카운터에서 음료를 받아가세요! :)',
-    icon: 'images/pushicon-coffee.jpg',
-    sound: 'audio/old_spice_whistle.mp3',
-    vibrate: [300,100,300], //테스트용
-    //vibrate: [500, 700, 500, 700, 500, 700, 500, 700, 500],
-    data: {
-      dateOfArrival: Date.now(),
-      primaryKey: 'confirmNotification'
-    },
-    actions: [
-      {action: 'explore', title: '알림 확인',
-        icon: 'images/checkmark.png'},
-      {action: 'close', title: '알림 끄기',
-        icon: 'images/xmark.png'},
-    ]
-  };
-  e.waitUntil(
-    self.registration.showNotification('음료 제조완료', options)
-  );
+self.addEventListener('push', function(e) {
+    var myData = e.data.text();
+    var plz = JSON.parse(myData);
+    
+    if(plz.tag === 'event'){
+        var options = {
+            body: plz.content,
+            icon: 'images/pushicon-coffee.jpg',
+            vibrate: [300,100,300], //테스트용
+            //vibrate: [500, 700, 500, 700, 500, 700, 500, 700, 500],
+            data: {
+              dateOfArrival: Date.now(),
+              primaryKey: 'showEvent',
+              idx: plz.idx
+            },
+            actions: [
+              {action: 'explore', title: '알림 확인',
+                icon: 'images/checkmark.png'},
+              {action: 'close', title: '알림 끄기',
+                icon: 'images/xmark.png'},
+            ]
+        };
+        e.waitUntil(
+            self.registration.showNotification(plz.title, options)
+        );
+    }else if(plz.tag === 'cafe'){
+        var options = {
+            body: plz.tag,
+            icon: 'images/pushicon-coffee.jpg',
+            vibrate: [300,100,300], //테스트용
+            //vibrate: [500, 700, 500, 700, 500, 700, 500, 700, 500],
+            data: {
+              dateOfArrival: Date.now(),
+              primaryKey: 'confirmNotification'
+            },
+            actions: [
+              {action: 'explore', title: '알림 확인',
+                icon: 'images/checkmark.png'},
+              {action: 'close', title: '알림 끄기',
+                icon: 'images/xmark.png'},
+            ]
+        };
+        e.waitUntil(
+            self.registration.showNotification('음료 제조완료', options)
+        );
+    }
 });

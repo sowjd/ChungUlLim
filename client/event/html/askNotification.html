@@ -1,0 +1,155 @@
+<!-- 
+손님용
+-->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width" , initial-scale="1">
+    <meta charset="utf-8">
+    <title>Push Test</title>
+    <link rel="stylesheet" href="../../../bootstrap/css/bootstrap.css">
+</head>
+
+<body>
+    <style>
+        .image {
+            position: relative;
+            height: 726px;
+            background: url(../../../images/orange.jpg) no-repeat center center;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            height: calc(100vh);
+            min-height: 200px;
+        }
+
+        .image.container {
+            position: absolute;
+            color: white;
+        }
+
+        .hello {
+            color: white;
+            font-size: 3rem;
+            text-align: center;
+        }
+
+        /* The switch - the box around the slider */
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 120px;
+            height: 68px;
+            vertical-align: middle;
+        }
+
+        /* Hide default HTML checkbox */
+
+        .switch input {
+            display: none;
+        }
+
+        /* The slider */
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 52px;
+            width: 52px;
+            left: 8px;
+            bottom: 8px;
+            background-color: white;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+        input:checked+.slider {
+            background-color: #2196F3;
+        }
+
+        input:focus+.slider {
+            box-shadow: 0 0 2px #2196F3;
+        }
+
+        input:checked+.slider:before {
+            -webkit-transform: translateX(52px);
+            -ms-transform: translateX(52px);
+            transform: translateX(52px);
+        }
+
+        /* Rounded sliders */
+
+        .slider.round {
+            border-radius: 34px;
+        }
+
+        .slider.round:before {
+            border-radius: 50%;
+        }
+
+        p {
+            margin: 0px;
+            font-size: 1.7rem;
+            text-align: center;
+            color: rgb(196, 194, 194);
+        }
+
+        button {
+            width: 25vw;
+            height: 5vh;
+            text-shadow: 0.5px;
+            text-align: center;
+            font-size: 1em;
+            background-color: rgba(197, 195, 195, 0.904);
+        }
+
+        button:disabled,
+        button[disabled] {
+            border: 1px solid #999999;
+            background-color: #cccccc;
+            color: #666666;
+        }
+    </style>
+    <div class="image">
+        <br>
+        <br>
+        <br>
+        <div class="container">
+            <div class="starter-template">
+                <h1 class="hello">이벤트 데모</h1>
+                <br>
+
+                <p>쇼핑몰의 이벤트광고 수신여부를</p>
+                <p>설정해 주세요.</p>
+                <br>
+                <center>
+                    <button id="push-btn"> 수신하기 </button>
+                    <button id="no-push-btn"> 수신취소하기 </button>
+                </center>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script src="../../../bootstrap/js/jquery-3.3.1.min.js"></script>
+    <script src="../../../bootstrap/js/bootstrap.min.js"></script>
+</body>
+
+</html>
