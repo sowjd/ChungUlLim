@@ -76,11 +76,8 @@ else {
 		$query = "Insert into EventList(title, content, term, imgfile) values ('$title', '$content', '$term', '$file')";
 		$rlt = $dbConnect->query($query);
 		if(!$rlt)
-		echo "DB저장 실패";
-		
-		
+		echo "DB저장 실패";		
 		$dbConnect -> close();
-
 }
 ?>
 

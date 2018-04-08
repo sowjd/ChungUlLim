@@ -55,7 +55,7 @@ self.addEventListener('push', function(e) {
     
   var options = {
     body: payload + ' 관리페이지를 새로고침 해주세요.:)',
-    icon: 'images/pushicon-coffee.jpg',
+    icon: '../../images/pushicon-coffee.jpg',
     vibrate: [100, 50, 100],
     data: {
       dateOfArrival: Date.now(),
@@ -63,7 +63,7 @@ self.addEventListener('push', function(e) {
     },
     actions: [
       {action: 'close', title: '알림 끄기',
-        icon: 'images/xmark.png'},
+        icon: '../../images/xmark.png'},
     ]
   };
   e.waitUntil(

@@ -22,7 +22,7 @@ if (!('Notification' in window)) {
 if ('serviceWorker' in navigator && 'PushManager' in window) {
     console.log('Service Worker and Push is supported');
 
-    navigator.serviceWorker.register('/client/cafe/sw-client.js')
+    navigator.serviceWorker.register('/client/sw-client.js')
     .then(function(swReg) {
       console.log('Service Worker is registered', swReg);
 

@@ -34,10 +34,10 @@ self.addEventListener('notificationclose', function(e) {
       notification.close();
     } else {
       if(tag === 'cafe'){
-            clients.openWindow('/client/cafe/html/' + primaryKey + '.html');
+            clients.openWindow('/client/html/' + primaryKey + '.html');
             notification.close();
       }else if(tag === 'event'){
-            clients.openWindow('/client/event/html/' + primaryKey + '.html?idx=' + idx);
+            clients.openWindow('/client/html/' + primaryKey + '.html?idx=' + idx);
             notification.close();  
       }
     }
@@ -50,7 +50,7 @@ self.addEventListener('push', function(e) {
     if(plz.tag === 'event'){
         var options = {
             body: plz.content,
-            icon: 'images/pushicon-coffee.jpg',
+            icon: '../images/alert.jpg',
             vibrate: [300,100,300], //테스트용
             //vibrate: [500, 700, 500, 700, 500, 700, 500, 700, 500],
             data: {
@@ -61,9 +61,9 @@ self.addEventListener('push', function(e) {
             },
             actions: [
               {action: 'explore', title: '알림 확인',
-                icon: 'images/checkmark.png'},
+                icon: '../images/checkmark.png'},
               {action: 'close', title: '알림 끄기',
-                icon: 'images/xmark.png'},
+                icon: '../images/xmark.png'},
             ]
         };
         e.waitUntil(
@@ -72,7 +72,7 @@ self.addEventListener('push', function(e) {
     }else if(plz.tag === 'cafe'){
         var options = {
             body: plz.tag,
-            icon: 'images/pushicon-coffee.jpg',
+            icon: '../images/pushicon-coffee.jpg',
             vibrate: [300,100,300], //테스트용
             //vibrate: [500, 700, 500, 700, 500, 700, 500, 700, 500],
             data: {
@@ -82,9 +82,9 @@ self.addEventListener('push', function(e) {
             },
             actions: [
               {action: 'explore', title: '알림 확인',
-                icon: 'images/checkmark.png'},
+                icon: '../images/checkmark.png'},
               {action: 'close', title: '알림 끄기',
-                icon: 'images/xmark.png'},
+                icon: '../images/xmark.png'},
             ]
         };
         e.waitUntil(
