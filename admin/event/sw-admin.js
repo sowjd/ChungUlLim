@@ -45,16 +45,13 @@ self.addEventListener('notificationclose', function(e) {
       notification.close();
     } 
 
+    // TODO 5.3 - close all notifications when one is clicked
+
   });
 
-self.addEventListener('push', function(e) {
-  var payload;
-  if(e.data){
-      payload = e.data.text();
-  }
-    
+    self.addEventListener('push', function(e) {
   var options = {
-    body: payload + ' 관리페이지를 새로고침 해주세요.:)',
+    body: '관리페이지가 업데이트 되었습니다! :) 새로고침 해주세요.',
     icon: '../../images/pushicon-coffee.jpg',
     vibrate: [100, 50, 100],
     data: {
@@ -67,6 +64,6 @@ self.addEventListener('push', function(e) {
     ]
   };
   e.waitUntil(
-    self.registration.showNotification('업데이트 알림', options)
+    self.registration.showNotification('음료 제조완료', options)
   );
 });

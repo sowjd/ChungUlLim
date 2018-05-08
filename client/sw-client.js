@@ -1,4 +1,3 @@
-
 var CACHE_NAME = 'client-cache';
 var urlsToCache = [
     '/',
@@ -71,7 +70,7 @@ self.addEventListener('push', function(e) {
         );
     }else if(plz.tag === 'cafe'){
         var options = {
-            body: plz.tag,
+            body: "카운터에서 음료를 수령해가시길 바랍니다:)",
             icon: '../images/pushicon-coffee.jpg',
             vibrate: [300,100,300], //테스트용
             //vibrate: [500, 700, 500, 700, 500, 700, 500, 700, 500],
